@@ -205,14 +205,21 @@ def fijar_texto(clave: str, texto: str):
     _guardar(clave, texto, len(texto))
 
 
-def dibujar_teclado(clave: str, deshabilitadas=frozenset()):
-    """Dibuja las pestañas 123 y f(x). deshabilitadas: etiquetas a desactivar."""
+def dibujar_teclado(clave: str, deshabilitadas=frozenset(), con_y: bool = False):
+    """Dibuja las pestañas 123 y f(x). deshabilitadas: etiquetas a desactivar.
+
+    con_y agrega la tecla y junto a x (para y' = f(x, y)).
+    """
     st.markdown(ESTILOS, unsafe_allow_html=True)
+    simbolos_teclas = TECLAS_SIMBOLOS
+    if con_y:
+        primera = TECLAS_SIMBOLOS[0]
+        simbolos_teclas = [[primera[0], ("y", "y"), *primera[1:]], *TECLAS_SIMBOLOS[1:]]
     pestana_123, pestana_fx = st.tabs(["123", "f(x)"])
     with pestana_123:
         simbolos, numeros = st.columns([5, 6], gap="xlarge")
         with simbolos:
-            _dibujar_teclas(TECLAS_SIMBOLOS, clave, "simbolos", deshabilitadas)
+            _dibujar_teclas(simbolos_teclas, clave, "simbolos", deshabilitadas)
         with numeros:
             _dibujar_teclas(TECLAS_NUMEROS, clave, "numeros", deshabilitadas)
     with pestana_fx:

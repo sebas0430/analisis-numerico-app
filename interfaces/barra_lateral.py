@@ -15,6 +15,14 @@ UNIDADES = {
         "Factorización LUP",
         "Gauss-Seidel",
     ],
+    "Integración numérica": [
+        "Trapecio compuesto",
+        "Simpson compuesto",
+    ],
+    "Ecuaciones diferenciales": [
+        "Euler",
+        "Runge-Kutta 4",
+    ],
 }
 
 

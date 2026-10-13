@@ -2,6 +2,8 @@
 import streamlit as st
 
 from interfaces.barra_lateral import mostrar_barra_lateral
+from interfaces.ecuaciones_diferenciales import pantalla_euler, pantalla_runge_kutta
+from interfaces.integracion import pantalla_simpson, pantalla_trapecio
 from interfaces.raices import (
     pantalla_biseccion,
     pantalla_newton,
@@ -31,6 +33,14 @@ PANTALLAS = {
         "Factorización LU": pantalla_lu.mostrar,
         "Factorización LUP": pantalla_lup.mostrar,
         "Gauss-Seidel": pantalla_gauss_seidel.mostrar,
+    },
+    "Integración numérica": {
+        "Trapecio compuesto": pantalla_trapecio.mostrar,
+        "Simpson compuesto": pantalla_simpson.mostrar,
+    },
+    "Ecuaciones diferenciales": {
+        "Euler": pantalla_euler.mostrar,
+        "Runge-Kutta 4": pantalla_runge_kutta.mostrar,
     },
 }
 

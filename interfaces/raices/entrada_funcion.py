@@ -12,9 +12,11 @@ from interfaces import teclado
 from interfaces.notacion import texto_a_latex
 
 
-def pedir_funcion(etiqueta: str, valor_inicial: str, clave: str) -> str:
+def pedir_funcion(etiqueta: str, valor_inicial: str, clave: str,
+                  con_y: bool = False) -> str:
     """Dibuja la función en notación matemática y el teclado.
 
+    con_y permite usar y además de x (ecuaciones diferenciales).
     Devuelve el texto escrito.
     """
     teclado.preparar(clave, valor_inicial)
@@ -27,11 +29,11 @@ def pedir_funcion(etiqueta: str, valor_inicial: str, clave: str) -> str:
         st.caption("⚠️ Falta completar la función")
     else:
         try:
-            interpretar(texto)
+            interpretar(texto, con_y=con_y)
         except ValueError as e:
             st.caption(f"⚠️ {e}")
 
-    teclado.dibujar_teclado(clave)
+    teclado.dibujar_teclado(clave, con_y=con_y)
 
     with st.expander("✏️ Escribir a mano"):
         st.text_input(

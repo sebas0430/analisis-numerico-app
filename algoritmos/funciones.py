@@ -21,6 +21,7 @@ from sympy.parsing.sympy_parser import (
 )
 
 x = sp.Symbol("x")
+y = sp.Symbol("y")
 
 TRANSFORMACIONES = standard_transformations + (
     convert_xor,
@@ -72,19 +73,22 @@ def _parsear(limpio: str, nombres: dict, texto: str):
     return expresion
 
 
-def interpretar(texto: str):
-    """Convierte el texto en una expresión de sympy que depende solo de x.
+def interpretar(texto: str, con_y: bool = False):
+    """Convierte el texto en una expresión de sympy que depende solo de x
+    (o de x e y si con_y, para las ecuaciones diferenciales y' = f(x, y)).
 
-    Lanza ValueError si el texto no es una función válida de x.
+    Lanza ValueError si el texto no es una función válida.
     """
+    variables = "x e y" if con_y else "x"
     limpio = _normalizar(texto)
     if not limpio:
-        raise ValueError("Escribe una función de x")
+        raise ValueError(f"Escribe una función de {variables}")
 
-    expresion = _parsear(limpio, NOMBRES, texto)
+    nombres = {**NOMBRES, "y": y} if con_y else NOMBRES
+    expresion = _parsear(limpio, nombres, texto)
 
-    if expresion.free_symbols - {x}:
-        raise ValueError("La función solo puede depender de x")
+    if expresion.free_symbols - ({x, y} if con_y else {x}):
+        raise ValueError(f"La función solo puede depender de {variables}")
 
     if expresion.has(sp.I):
         raise ValueError("La función no puede tener números imaginarios")
@@ -123,6 +127,17 @@ def crear_funcion(texto: str):
     """
     expresion = interpretar(texto)
     f = sp.lambdify(x, expresion, "numpy")
+    return f, expresion
+
+
+def crear_funcion_xy(texto: str):
+    """Recibe algo como 'x + y' y devuelve (f, expresion) con f(x, y).
+
+    Lo usan los métodos de ecuaciones diferenciales (y' = f(x, y)).
+    Lanza ValueError si el texto no es una función válida de x e y.
+    """
+    expresion = interpretar(texto, con_y=True)
+    f = sp.lambdify((x, y), expresion, "numpy")
     return f, expresion
 
 
