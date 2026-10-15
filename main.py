@@ -3,7 +3,7 @@ import streamlit as st
 
 from interfaces.barra_lateral import mostrar_barra_lateral
 from interfaces.ecuaciones_diferenciales import pantalla_euler, pantalla_runge_kutta
-from interfaces.integracion import pantalla_simpson, pantalla_trapecio
+from interfaces.integracion import pantalla_riemann, pantalla_simpson, pantalla_trapecio
 from interfaces.raices import (
     pantalla_biseccion,
     pantalla_newton,
@@ -14,8 +14,10 @@ from interfaces.raices import (
 from interfaces.sistemas_lineales import (
     pantalla_gauss,
     pantalla_gauss_seidel,
+    pantalla_jacobi,
     pantalla_lu,
     pantalla_lup,
+    pantalla_sustitucion,
 )
 
 st.set_page_config(page_title="Proyecto Numérico", layout="wide")
@@ -33,10 +35,13 @@ PANTALLAS = {
         "Factorización LU": pantalla_lu.mostrar,
         "Factorización LUP": pantalla_lup.mostrar,
         "Gauss-Seidel": pantalla_gauss_seidel.mostrar,
+        "Jacobi": pantalla_jacobi.mostrar,
+        "Sustitución adelante/atrás": pantalla_sustitucion.mostrar,
     },
     "Integración numérica": {
         "Trapecio compuesto": pantalla_trapecio.mostrar,
         "Simpson compuesto": pantalla_simpson.mostrar,
+        "Sumas superiores e inferiores": pantalla_riemann.mostrar,
     },
     "Ecuaciones diferenciales": {
         "Euler": pantalla_euler.mostrar,

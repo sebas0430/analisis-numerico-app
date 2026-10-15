@@ -14,10 +14,13 @@ UNIDADES = {
         "Factorización LU",
         "Factorización LUP",
         "Gauss-Seidel",
+        "Jacobi",
+        "Sustitución adelante/atrás",
     ],
     "Integración numérica": [
         "Trapecio compuesto",
         "Simpson compuesto",
+        "Sumas superiores e inferiores",
     ],
     "Ecuaciones diferenciales": [
         "Euler",

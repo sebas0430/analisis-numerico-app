@@ -7,6 +7,8 @@ import numpy as np
 import sympy as sp
 
 from algoritmos.sistemas_lineales.validacion import validar_sistema
+from algoritmos.sistemas_lineales.sustitucion import (
+    sustitucion_hacia_adelante, sustitucion_hacia_atras)
 
 
 def resolver_lu(A, b) -> dict:
@@ -24,8 +26,8 @@ def resolver_lu(A, b) -> dict:
     U = np.array(U.evalf(), dtype=float)
 
     # Ly = b (sustitución hacia adelante) y Ux = y (sustitución hacia atrás)
-    y = np.linalg.solve(L, b)
-    x = np.linalg.solve(U, y)
+    y = sustitucion_hacia_adelante(L, b)["y"]
+    x = sustitucion_hacia_atras(U, y)["x"]
 
     return {
         "L": L,
