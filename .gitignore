@@ -1,0 +1,10 @@
+
+# Generados al ejecutar (Python compila los módulos que importa streamlit)
+__pycache__/
+*.py[cod]
+
+# Configuración local de Streamlit con claves
+.streamlit/secrets.toml
+
+# Entorno virtual
+.venv/
